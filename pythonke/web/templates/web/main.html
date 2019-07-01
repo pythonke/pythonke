@@ -1,0 +1,22 @@
+{% extends 'web/base.html' %}
+
+{% block content %}
+
+  <div class="container">
+      <h1>pythonke</h1>
+      Community of people from Košice interested in creating interesting project of any kind.
+      <hr> 
+      Links:
+      <ul>
+        <li>Github: <a href="{{ github_url }}">{{ github_url }}</a></li>
+        <li>Facebook: <a href="{{ facebook_url }}">{{ facebook_url }}</a></li>
+        <li>Youtube: <a href="{{ youtube_url }}">{{ youtube_url }}</a></li>
+      </ul>
+
+      <hr>
+      <h2>Website of pythonke</h2>
+      <p>You can help create and update content and look of this website, 
+      just fork <a href="{{ project_url }}">this</a> repo edit and create merge request!</p>
+  </div>
+  
+{% endblock %}
