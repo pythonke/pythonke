@@ -9,5 +9,5 @@ def main(request):
         'project_url': 'https://github.com/pythonke/pythonke'
     }
 
-    return render(request, 'web/main.html', context)
+    return render(request, 'main.html', context)
 

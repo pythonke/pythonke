@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+  <h1>{{ obj.title }}</h1>
+  {% if obj.draft %} <span style="color:red">Draft</span> {% endif %} <br>
+  <small>{{ obj.publish }}</small>
+  {{ obj.content|linebreaks }}
+  {% if obj.image %}
+  <img src="{{ obj.image.url }}" alt="image" class="img-fluid">
+  {% endif %}
+  <small>Author: {{ obj.user.get_full_name }}</small>
+</div>
+  
+{% endblock %}
