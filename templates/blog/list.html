@@ -4,6 +4,12 @@
 
   <div class="container">
       <h1>blog list</h1>
+      {% for obj in object_list %}
+        <a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a> <br>
+        {{ obj.content }} <br>
+        {{ obj.created }} <br>
+        {{ obj.id }} <br>
+      {% endfor %}
   </div>
   
 {% endblock %}
