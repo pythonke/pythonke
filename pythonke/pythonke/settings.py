@@ -1,11 +1,13 @@
 import os
+import environ
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+env = environ.Env()
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECRET_KEY = 't7c@tv9anujf4jdzdq4nyd@&sglxiz+rr1^0(b_h&c_s(1ra)w'
-DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+SECRET_KEY = env('SECRET_KEY')
+DEBUG = env.bool('DEBUG', default=False)
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -80,7 +82,3 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
-
-# STATICFILES_DIRS = (
-#     '/home/maro/pythonke/pythonke/web/static',
-# )
