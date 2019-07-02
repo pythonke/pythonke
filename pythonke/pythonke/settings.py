@@ -16,6 +16,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # third_party
+    'pagedown',
+    # local_apps
     'apps.blog',
     'apps.web',
 ]

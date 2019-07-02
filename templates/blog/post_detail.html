@@ -4,13 +4,14 @@
 
 <div class="container">
   <h1>{{ obj.title }}</h1>
-  {% if obj.draft %} <span style="color:red">Draft</span> {% endif %} <br>
+  {% if obj.draft %} <span style="color:red">Draft</span> {% endif %}
+  
   <small>{{ obj.publish }}</small>
-  {{ obj.content|linebreaks }}
-  {% if obj.image %}
-  <img src="{{ obj.image.url }}" alt="image" class="img-fluid">
-  {% endif %}
-  <small>Author: {{ obj.user.get_full_name }}</small>
+  <div class="markdown-content">{{ obj.content }}</div>
+
+  {% if obj.image %}<hr><img src="{{ obj.image.url }}" alt="image" class="img-fluid">{% endif %}
+
+  <hr><small>Author: {{ obj.user.get_full_name }}</small>
 </div>
   
 {% endblock %}

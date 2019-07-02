@@ -1,16 +1,33 @@
 {% extends 'base.html' %}
 
+{% block head_extra %}
+{{ form.media }}
+{% endblock head_extra %}
+
 {% block content %}
 
-  <div class="container">
-    <h1>Form</h1>
+<div class="container-fluid">
+  <div class="row">
 
-    <form method="POST" action='' enctype='multipart/form-data'>
-      {% csrf_token %}
-      {{ form.as_p }}
-      <input type="submit" value="Create post">
-    </form>
+    <div class="col-sm-6">
+      <h1>Form</h1>
+      <form method="POST" action='' enctype='multipart/form-data'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Create post">
+      </form>
+    </div> <!-- end col-sm-6 -->
 
-  </div>
+    <div id="preview-box" class="col-sm-6">
+      <h1>Preview</h1>
+      <div class="content-preview">
+        <h3 id="preview-title"></h3>
+        <hr>
+        <p id='preview-content'></p>
+      </div>
+    </div> <!-- end col-sm-6 -->
+
+  </div> <!-- end row -->
+</div> <!-- end container -->
   
 {% endblock %}
