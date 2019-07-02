@@ -10,6 +10,10 @@ $(document).ready(function(){
       $(this).addClass('img-fluid');
   })
 
+  $('.card-text img').each(function(){
+    $(this).addClass('img-fluid');
+  })
+
   // creating dynamic preview
   var contentInput = $("#id_content");
 

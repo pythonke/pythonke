@@ -5,83 +5,62 @@
 <div id="graph-container"></div>
 
 <div class="container">
-  <div class="row justify-content-md-center">
-    <div class="col-6">
-      <h1>Blog</h1>
 
-      {% for obj in object_list %}
+  <div class="row">
+    <h3>Featured posts</h3>
+  </div>
+
+  <div class="row">
+    {% for obj in object_list %}
+    <div class="col-sm-6">
       <div class="card">
+
+        <a href="{{ obj.get_absolute_url }}" class="link-div">
+          <div class="card-header cover" 
+            {% if obj.image %}style="background-image: url('{{ obj.image.url }}')"{% endif %}>
+            <h3>{{ obj.title }}</h3>
+          </div>
+        </a>
+        
         <div class="card-body">
-          <h5 class="card-title">{{ obj.title }}</h5>
-          <small>{{ obj.publish|timesince }} ago.</small>
-          <p class="card-text markdown-content">{{ obj.content|truncatewords_html:15}}</p>
-          <a href="{{ obj.get_absolute_url }}" class="btn btn-primary">Read</a>
+          <h5 class="card-title">{{ obj.user }}
+            <small class="float-right">{{ obj.publish|timesince }} ago</small>
+          </h5>
+          <div class="card-text">{{ obj.description }}</div>
+          
+        </div>
+        <div class="card-footer bg-transparent">
+            <a href="{{ obj.get_absolute_url }}" class="btn btn-primary">Read</a>
         </div>
       </div>
-      <br>
-      {% endfor %}
+    </div> <!-- end col-sm-6 -->
+    {% endfor %}
+    
+  </div> <!-- end row -->
 
+  <div class="row">
+    <div class="col-sm-12">
+      <hr>
       <div class="pagination">
-          <span class="step-links">
-              {% if object_list.has_previous %}
-                  <a href="?page=1">&laquo; first</a>
-                  <a href="?page={{ object_list.previous_page_number }}">previous</a>
-              {% endif %}
-      
-              <span class="current">
-                  Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
-              </span>
-      
-              {% if object_list.has_next %}
-                  <a href="?page={{ object_list.next_page_number }}">next</a>
-                  <a href="?page={{ object_list.paginator.num_pages }}">last &raquo;</a>
-              {% endif %}
-          </span>
+        <span class="step-links">
+            {% if object_list.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ object_list.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+            </span>
+    
+            {% if object_list.has_next %}
+                <a href="?page={{ object_list.next_page_number }}">next</a>
+                <a href="?page={{ object_list.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
       </div> <!-- endpagination-->
-    </div> <!-- endcol -->
-
+    </div> 
   </div> <!-- endrow -->
+
 </div> <!-- endcontainer -->
   
-
-<script src="https://cdn.jsdelivr.net/npm/@gitgraph/js"></script>
-<script>
-
-
-    const options = {
-      template: templateExtend("metro", {
-        colors: ["red", "blue", "orange"],
-        // …
-      }),
-    };
-
-    // Get the graph container HTML element.
-    const graphContainer = document.getElementById("graph-container");
-
-    // Instantiate the graph.
-    const gitgraph = GitgraphJS.createGitgraph(graphContainer);
-
-    // Simulate git commands with Gitgraph API.
-    const master = gitgraph.branch("master");
-    master.commit("Initial commit");
-
-    const django = gitgraph.branch("django");
-    django.commit({
-      subject: 'This is a new blog post',
-      body: 'renderMessage',
-    })
-
-    const aFeature = gitgraph.branch("a-feature");
-    aFeature
-      .commit("Make it work")
-      .commit("Make it right")
-      .commit("Make it fast");
-
-    django.merge(aFeature);
-    django.commit("Prepare v1");
-
-    master.merge(django).tag("v1.0.0");
-  </script>
-
-
 {% endblock %}

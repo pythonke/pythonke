@@ -3,15 +3,17 @@
 {% block content %}
 
 <div class="container">
-  <h1>{{ obj.title }}</h1>
-  {% if obj.draft %} <span style="color:red">Draft</span> {% endif %}
-  
-  <small>{{ obj.publish }}</small>
-  <div class="markdown-content">{{ obj.content }}</div>
+  <div class="row justify-content-md-center">
+    <div class="col-sm-8">
+      <h1>{{ obj.title }}</h1>
+      {% if obj.draft %} <span style="color:red">Draft</span> {% endif %}
+      
+      <small>{{ obj.publish }}</small>
+      <div class="markdown-content">{{ obj.content }}</div>
 
-  {% if obj.image %}<hr><img src="{{ obj.image.url }}" alt="image" class="img-fluid">{% endif %}
-
-  <hr><small>Author: {{ obj.user.get_full_name }}</small>
+      <hr><small>Author: {{ obj.user.get_full_name }}</small>
+    </div>
+  </div>
 </div>
   
 {% endblock %}
