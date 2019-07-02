@@ -4,6 +4,8 @@ from django.urls import reverse
 from django.db.models.signals import pre_save
 from django.utils.text import slugify
 from django.utils import timezone
+from django.utils.safestring import mark_safe
+from markdown_deux import markdown
 
 
 class PostManager(models.Manager):
@@ -17,6 +19,7 @@ class Post(models.Model):
     slug = models.SlugField(unique=True)
     content = models.TextField()
     image = models.FileField(null=True, blank=True)
+    description = models.CharField(max_length=100)
     draft = models.BooleanField(default=False)
     publish = models.DateField(auto_now=False, auto_now_add=False)
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
@@ -34,6 +37,10 @@ class Post(models.Model):
     
     class Meta:
         ordering = ["-created"]
+
+    def get_html(self):
+        content = self.content
+        return mark_safe(markdown(content))
 
 
 def create_slug(instance, new_slug=None):
