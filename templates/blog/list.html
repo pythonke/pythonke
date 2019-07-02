@@ -2,17 +2,19 @@
 
 {% block content %}
 
+<div id="graph-container"></div>
+
 <div class="container">
   <div class="row justify-content-md-center">
     <div class="col-6">
-      <h1>blog list</h1>
+      <h1>Blog</h1>
 
       {% for obj in object_list %}
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">{{ obj.title }}</h5>
           <small>{{ obj.publish|timesince }} ago.</small>
-          <p class="card-text">{{ obj.content|linebreaks|truncatechars:30}}</p>
+          <p class="card-text markdown-content">{{ obj.content|truncatewords_html:15}}</p>
           <a href="{{ obj.get_absolute_url }}" class="btn btn-primary">Read</a>
         </div>
       </div>
@@ -41,6 +43,45 @@
   </div> <!-- endrow -->
 </div> <!-- endcontainer -->
   
+
+<script src="https://cdn.jsdelivr.net/npm/@gitgraph/js"></script>
+<script>
+
+
+    const options = {
+      template: templateExtend("metro", {
+        colors: ["red", "blue", "orange"],
+        // …
+      }),
+    };
+
+    // Get the graph container HTML element.
+    const graphContainer = document.getElementById("graph-container");
+
+    // Instantiate the graph.
+    const gitgraph = GitgraphJS.createGitgraph(graphContainer);
+
+    // Simulate git commands with Gitgraph API.
+    const master = gitgraph.branch("master");
+    master.commit("Initial commit");
+
+    const django = gitgraph.branch("django");
+    django.commit({
+      subject: 'This is a new blog post',
+      body: 'renderMessage',
+    })
+
+    const aFeature = gitgraph.branch("a-feature");
+    aFeature
+      .commit("Make it work")
+      .commit("Make it right")
+      .commit("Make it fast");
+
+    django.merge(aFeature);
+    django.commit("Prepare v1");
+
+    master.merge(django).tag("v1.0.0");
+  </script>
 
 
 {% endblock %}

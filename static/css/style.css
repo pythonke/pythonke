@@ -1,0 +1,13 @@
+
+p {
+    margin: auto;
+}
+
+.wmd-panel {
+    margin: 0;
+}
+
+#preview-box {
+    height:100vh;
+    overflow: auto;
+}
