@@ -7,7 +7,7 @@ verify_ssl = true
 
 [packages]
 pytz = "==2019.1"
-sqlparse = "==0.3.0"
+sqlparse = "==0.4.4"
 Django = "==2.2.3"
 django-environ = "*"
 
